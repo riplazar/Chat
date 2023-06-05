@@ -1,0 +1,12 @@
+topic: ~cancelacion keep repeat()
+
+t:(~sic)
+        ^jsonundecodestring(%$)Excelente, confirmado para mañana jueves O Recuerde 
+        llegar 20 minutos antes La dirección es Las Lilas 203 (MetroSalvador) https://maps.gl/diyMvNQ
+        $estado = null
+
+t:(~noc)
+       ^jsonundecodestring(%$)Entiendo que no podrá asistir a esta
+        cita, cierto? 6 de enero a las 13:45 con la Dra.
+        Zunino(Se Cancela).
+        $estado = null

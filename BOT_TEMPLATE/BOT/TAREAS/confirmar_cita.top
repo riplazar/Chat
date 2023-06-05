@@ -1,0 +1,10 @@
+topic: ~confirmacion keep repeat()
+
+t:(~sic)
+       ^jsonundecodestring(%$)- Excelente, confirmado para mañana jueves 1 Recuerde llegar 
+       20  minutos antes de su cita La dirección es Las Lilas 2039 (Metro Salvador) Piso 300
+       $estado = null
+
+t:(~noc)
+        ^jsonundecodestring(%$)- Entendido, no ha confirmado su cita, por lo que será cancelada 
+        $estado = null

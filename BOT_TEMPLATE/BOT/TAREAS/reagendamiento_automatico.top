@@ -1,0 +1,33 @@
+topic: ~reagendamiento  keep repeat()
+
+
+
+t: APRUEBO-CITA ( [~sic] )
+     [^jsonwrite($x)]
+    ^jsonundecodestring(%$) Ok, que te vaya bien en tu cita.
+    $estado = null
+    
+
+t: RECHAZO-CITA ([~noc])
+     [^jsonwrite($x)]
+    ^jsonundecodestring(%$) Ok, no te preocupes, avisaré a la doctora. Si quieres reagendar, dime por favor opciones de fecha y hora para buscar
+    $estado = ~fechaNueva
+
+topic: ~fechaNueva keep repeat()
+
+t: APRUEBO-REAGENDAMIENTO ([~sic])
+    [^jsonwrite($x)]
+    ^jsonundecodestring(%$)Tengo estas opciones con la Dra. Zunino en Providencia:
+    1- el miércoles 9 de junio a las 11:15
+    2- el miércoles 9 de junio a las 12:15
+
+
+t: RECHAZO-REAGENDAMIENTO ([~noc])
+    [^jsonwrite($x)]
+    ^jsonundecodestring(%$) Ok, entendido, que tengas un buen dia
+    $estado = null
+
+t: FECHA-REAGENDADA (~sic)
+    [^jsonwrite($x)]
+    ^jsonundecodestring(%$) ok, el dia x a las x:x tienes cita con la Dra. Zunino
+    $estado = null

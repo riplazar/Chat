@@ -1,0 +1,164 @@
+﻿topic: ~ustedEs keep repeat ()
+
+t: (!$sp)
+        $sp = 0 
+        $x = ^jsoncreate(TRANSIENT object)
+                $x.intencionContacto =  None
+                $x.intencionBot = CONSULTA_OPCION
+                $x.comandoAcanal = MAX_3-SILENCE_2
+                $x.comandoReporteria = TIPIFICAR_CONVERSACION
+                $x.argumentoComando.tipificacion = LISTA_OPCION
+                $x.argumentoComando.codigo = NC
+        [^jsonwrite($x)] 
+        ^jsonundecodestring(%$)  Hola bien venido a nuestra área de atención al cliente 
+por favor le ruego seleccionar la opción que desea utilizar
+1-	Confirmación de citas
+2-	Confirmación de citas Múltiples
+3-	Cancelación Cita
+4-	Reagendamiento Automático
+5-	Bloquear Agenda 
+6-	Lista De espera
+7-	Derivacion
+
+u: () 	
+	$x = ^jsoncreate(TRANSIENT object)
+                $x.intencionContacto =  None
+                $x.intencionBot = CONSULTA_TRANSFERENCIA
+                $x.comandoAcanal = None
+        [^jsonwrite($x)]
+	
+
+	
+a: MENSAJE-UNO ( < [1 ] > ) 
+	$x = ^jsoncreate(TRANSIENT object)
+                $x.intencionContacto =  CONFIRMAR_CITA
+                $x.intencionBot = CONFIRMAR_CITA
+                $x.comandoAcanal = TRANSFERIR_CONVERSACION
+                $x.destinoTransferencia = None
+                $x.comandoReporteria = TIPIFICAR_CONVERSACION
+                $x.argumentoComando.tipificacion = OPCION_UNO
+                $x.argumentoComando.codigo = NE        
+        [^jsonwrite($x)]
+        ^jsonundecodestring(%$) Hola Paulo, soy Gaby del Área Médica de la clínica. Le escribo para confirmar su cita para mañana jueves 13 de enero a las 13:45 que tiene con la Dra. Fabiola Lavanderos de Otorrinolaringología en  nuestra sucursal de Providencia. ¿Confirma su cita?.
+        $estado = ~confirmacion
+	$sp = null
+
+
+
+a: MENSAJE-DOS ( < [2 ] > )  	
+	$x = ^jsoncreate(TRANSIENT object)
+                $x.intencionContacto =  CONFIRMACION_MUL
+                $x.intencionBot = CONFIRMACION_MUL
+                $x.comandoAcanal = None
+                $x.comandoReporteria = TIPIFICAR_CONVERSACION
+                $x.argumentoComando.tipificacion = OPCION_DOS
+                $x.argumentoComando.codigo = NE
+	[^jsonwrite($x)]	
+	^jsonundecodestring(%$) Buen día. Tengo 2 citas asociadas a este número de teléfono. Me pidieron confirmarlas y si no le molesta, le preguntaré una por una.
+	$estado = ~multiple
+	$sp = null
+
+a: MENSAJE-TRES ( < [3 ] > )  	
+	$x = ^jsoncreate(TRANSIENT object)
+                $x.intencionContacto =  CANCELACION_ESP
+                $x.intencionBot = CANCELACION_ESP
+                $x.comandoAcanal = None
+                $x.comandoReporteria = TIPIFICAR_CONVERSACION
+                $x.argumentoComando.tipificacion = OPCION_TRES
+                $x.argumentoComando.codigo = NE
+	[^jsonwrite($x)]	
+	^jsonundecodestring(%$) Hola Diego, soy Gaby del Área Médica. Te escribo para confirmar tu cita para el lunes 2 de junio a las 13:45 con la Dra. Zunino en nuestra sucursal de Providencia. ¿Asistirás a tu cita?
+	$estado = ~cancelacion
+	$sp = null
+
+a: MENSAJE-CUATRO ( < [4 ] > )  	
+	$x = ^jsoncreate(TRANSIENT object)
+                $x.intencionContacto =  REAGENDAMIENTO_AUTO
+                $x.intencionBot = REAGENDAMIENTO_AUTO
+                $x.comandoAcanal = None
+                $x.comandoReporteria = TIPIFICAR_CONVERSACION
+                $x.argumentoComando.tipificacion = OPCION_CUATRO
+                $x.argumentoComando.codigo = NE
+	[^jsonwrite($x)]	
+	^jsonundecodestring(%$) Hola Diego, soy Gaby del Área Médica. Te escribo para confirmar tu cita para el lunes 2 de junio a las 13:45 con la Dra. Juanjo en nuestra sucursal de Providencia. ¿Asistirás a tu cita?
+	$estado = ~reagendamiento
+	$sp = null
+
+a: MENSAJE-CINCO ( < [5 ] > )  	
+	$x = ^jsoncreate(TRANSIENT object)
+                $x.intencionContacto =  BLOQUEO_AGE
+                $x.intencionBot = BLOQUEO_AGE
+                $x.comandoAcanal = None
+                $x.comandoReporteria = TIPIFICAR_CONVERSACION
+                $x.argumentoComando.tipificacion = OPCION_CINCO
+                $x.argumentoComando.codigo = NE
+	[^jsonwrite($x)]	
+	^jsonundecodestring(%$) SU SUCITA FUE SUSPENDIDA, Hola Camilo, lamento informarle que su cita para mañana a las 17:30 con la Dra. Zunino fue suspendida por motivos de fuerza mayor.Le pedimos disculpas, y para solucionar este problema le hemos agendado una nueva cita para  mañana a las 18:20 con el Dr. Schwartz. ¿Le acomoda esta opción?
+	$estado = ~bloqueos
+	$sp = null
+
+a: MENSAJE-SEIS ( < [6 ] > )  	
+	$x = ^jsoncreate(TRANSIENT object)
+                $x.intencionContacto =  LISTA_ESP
+                $x.intencionBot = LISTA_ESP
+                $x.comandoAcanal = None
+                $x.comandoReporteria = TIPIFICAR_CONVERSACION
+                $x.argumentoComando.tipificacion = OPCION_SEIS
+                $x.argumentoComando.codigo = NE
+	[^jsonwrite($x)]	
+	^jsonundecodestring(%$) Hola Franco, soy Gaby del Área Médica. Como se inscribió en nuestra lista de espera, le escribo porque hay una cita disponible de Cardiología para este jueves a las 17:20 con el Dr. Parra en nuestra sucursal de Providencia.¿Le acomoda esta alternativa?
+	$estado = ~lista
+	$sp = null
+
+a: MENSAJE-SIETE ( < [7 ] > )  	
+	$x = ^jsoncreate(TRANSIENT object)
+                $x.intencionContacto =  DERIVA_CION
+                $x.intencionBot = DERIVA_CION
+                $x.comandoAcanal = None
+                $x.comandoReporteria = TIPIFICAR_CONVERSACION
+                $x.argumentoComando.tipificacion = OPCION_SIETE
+                $x.argumentoComando.codigo = NE
+	[^jsonwrite($x)]	
+	^jsonundecodestring(%$) - Hola Joe, soy Gaby del Área Médica. La Dra. Zunino me pidió que le ayudara a coordinar los exámenes de procedimiento que le indicó. ¿Legustaría que le ayudemos a agendarlos? 
+	$estado = ~derivaciones
+	$sp = null
+
+a: SALIR-MENU ( < [salir no afuera  ] > )  	
+	$x = ^jsoncreate(TRANSIENT object)
+                $x.intencionContacto =  SALIR_MENU
+                $x.intencionBot = SALIR_MENU
+                $x.comandoAcanal = None
+                $x.comandoReporteria = TIPIFICAR_CONVERSACION
+                $x.argumentoComando.tipificacion = OPCION_OCHO
+                $x.argumentoComando.codigo = NE
+	[^jsonwrite($x)]	
+	^jsonundecodestring(%$) ^respond(~adios)
+
+
+
+a: MENSAJE-VACIO     (%length==0)   $sp += 1	
+	$x = ^jsoncreate(TRANSIENT object)
+                $x.intencionContacto =  MENSAJE_VACIO
+                $x.intencionBot = CONSULTA_OPCION
+                $x.comandoAcanal = None
+                $x.comandoReporteria = TIPIFICAR_CONVERSACION
+                $x.argumentoComando.tipificacion = NO_RESPONDE
+                $x.argumentoComando.codigo = NR
+        [^jsonwrite($x)]	
+	^jsonundecodestring(%$) Por favor seleccione una opcion valida de 1 a 7.
+	$estado = ~ustedEs
+
+a: MENSAJE-DESCONOCIDO ( )  $sp += 1	
+	$x = ^jsoncreate(TRANSIENT object)
+                $x.intencionContacto =  MENSAJE_DESCONOCIDO
+                $x.intencionBot = CONSULTA_OPCION
+                $x.comandoAcanal = None
+                $x.comandoReporteria = TIPIFICAR_CONVERSACION
+                $x.argumentoComando.tipificacion = NO_ENTIENDE
+                $x.argumentoComando.codigo = NE
+	[^jsonwrite($x)]	
+	^jsonundecodestring(%$) Por favor seleccione una opcion valida de 1 a 7.
+	$estado = ~ustedEs
+
+
+

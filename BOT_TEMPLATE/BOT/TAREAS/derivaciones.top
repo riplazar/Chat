@@ -1,0 +1,12 @@
+topic: ~derivaciones keep repeat()
+
+
+
+t:(~sic)
+    [^jsonwrite($x)]
+    ^jsonundecodestring(%$)- Perfecto! Le vamos a llamar porteléfono (más fácil ) 
+    para coordinar los detalles de la cita. Le pido porfavor que tenga a mano lascindicaciones que le dio la Dra.
+
+t:(~noc)
+    [^jsonwrite($x)]
+    ^jsonundecodestring(%$)ok, que tenga un buen dia

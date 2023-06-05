@@ -1,0 +1,15 @@
+topic: ~lista keep repeat()
+
+
+
+t:(~sic)
+    [^jsonwrite($x)]
+    ^jsonundecodestring(%$)ok, que le vaya bien
+
+t:(~noc)
+    [^jsonwrite($x)]
+    ^jsonundecodestring(%$)Entiendo, no se preocupe.Recuerde
+    que todos los pacientes tienen 3 oportunidades para encontrar una cita. 
+    Esta es la primera vez que le preguntamos por lo que aún sigue en la lista de espera y 
+    le avisaremos tan pronto encontremos un nuevo cupo
+    $estado = null

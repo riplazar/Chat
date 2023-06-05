@@ -1,0 +1,11 @@
+topic: ~bloqueos keep repeat()
+
+
+t:(~sic)
+    [^jsonwrite($x)]
+    ^jsonundecodestring(%$) Perfecto, su cita quedó agendada para mañana jueves 5 de junio a las 18:20 con el Dr. Schwartz en nuestra sucursal de Providencia.
+    $estado = null
+
+t:(~noc)
+    [^jsonwrite($x)]
+    ^jsonundecodestring(%$) ok,, que tenga un buen dia

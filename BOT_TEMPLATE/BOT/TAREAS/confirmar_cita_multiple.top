@@ -1,0 +1,22 @@
+topic: ~multiple keep repeat()
+
+t:([~sic $p])
+        
+        ^jsonundecodestring(%$)La primera cita es para Lucía,
+        mañana a las 4:30 PM con la doctora Rita Núñez en Providencia. ¿Confirmo la cita?
+        $estado = ~citas
+
+t:(~noc)
+       ^jsonundecodestring(%$) Entendido, que tenga un buen día 
+       $estado = null
+
+
+topic: ~citas keep repeat()
+
+t:(~sic)
+        ^jsonundecodestring(%$)Entendido, cita confirmada
+        $estado = null
+
+t:(~noc)
+    $estado = ~multiple
+    $p = si
